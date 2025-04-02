@@ -6,6 +6,7 @@ def get_random_quote(quotes_file='quotes.csv'):
     except Exception as e:
         quotes = [{'author':'Eric Idle',
                    'quote':'Always look on the bright side of life.'}]
+    return random.choice(quotes)
 
 def get_weather_forecast():
     pass
