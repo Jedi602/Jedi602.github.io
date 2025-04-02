@@ -1,0 +1,27 @@
+import requests
+import csv
+
+# Define the API endpoint (this one gives random quotes)
+url = "https://api.quotable.io/random"
+
+# Number of quotes you want to get
+num_quotes = 100
+
+# Prepare a list to store quotes
+quotes_data = []
+
+# Fetch the quotes
+for _ in range(num_quotes):
+    response = requests.get(url)
+    data = response.json()  # Get the JSON response
+    quote = data['content']
+    author = data['author']
+    quotes_data.append([quote, author])
+
+# Write quotes to a CSV file
+with open('quotes.csv', mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Quote', 'Author'])  # Header row
+    writer.writerows(quotes_data)
+
+print(f"{num_quotes} quotes saved to 'quotes.csv'.")
