@@ -1,0 +1,31 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+# Step 1: Fetch the page
+url = "https://www.reliablesoft.net/ai-text-generator-tools/quote-generator/" 
+response = requests.get(url)
+
+# Step 2: Parse the HTML
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# Step 3: Find the table or data you want (Example assumes you are scraping a table)
+table = soup.find('table')  # Modify this according to your specific data structure
+
+rows = table.find_all('tr')
+
+# Step 4: Prepare the data to write to CSV
+data = []
+
+# Loop through the rows and extract the data
+for row in rows:
+    cols = row.find_all('td')  # Change to 'th' if you're scraping headers
+    cols = [col.text.strip() for col in cols]
+    data.append(cols)
+
+# Step 5: Write data to a CSV file
+with open('output.csv', mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+print("CSV file has been created successfully.")
