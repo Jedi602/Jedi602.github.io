@@ -18,7 +18,12 @@ def get_weather_forecast():
                     'country':data['city']['country'],
                     'periods':list()}
         for period in data['list'][0:9]:
-            forecast['periods'].append({'timestamp
+            forecast['periods'].append({'timestamp': datetime.datetime.fromtimestamp(period['dt']),
+                                        'temp': round(period['main']['temp']),
+                                        'description': period['weather][0]['description'].title(),
+                                        'icon': f'http://openweathermap.org/img/wn/{period['weather']
+        return forecast
+                                                                                    except 
 
 def get_twitter_trend():
     pass
